@@ -32,7 +32,6 @@ const app = {
 // e.targer points to the element the event started on which in this case is form which we gave name "option" and we want to get <.value>
 const onFormSubmit = (e) => {
   e.preventDefault();
-
   console.log('form submitted');
 
   const option = e.target.elements.option.value;
@@ -49,9 +48,9 @@ const onRemoveAll= () => {
   renderIndecisionApp();
 };
 
-
 const appRoot = document.getElementById('app');
 
+// const numbers = [55, 101, 1000];
 
 const renderIndecisionApp = () => {
   const template = (
@@ -65,9 +64,16 @@ const renderIndecisionApp = () => {
      <p>{app.options.length}</p>
      {/* <p>{app.option}</p> */}
      <button onClick={onRemoveAll}>REMOVE ALL</button>
+     {/* {
+       numbers.map((number) => {
+         return <p key={number}>Number: {number}</p>;
+       })
+     } */}
+     {/* we have an array of jsx */}
      <ol>
-       <li>Item One</li>
-       <li>Item Two</li>
+       {
+         app.options.map((option) => <li key={option}>Your Input: {option}</li>)
+       }
      </ol>
      <form onSubmit={onFormSubmit}>
        <input type="text" name="option"/>

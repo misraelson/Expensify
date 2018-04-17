@@ -34,7 +34,6 @@ var app = {
 // e.targer points to the element the event started on which in this case is form which we gave name "option" and we want to get <.value>
 var onFormSubmit = function onFormSubmit(e) {
   e.preventDefault();
-
   console.log('form submitted');
 
   var option = e.target.elements.option.value;
@@ -52,6 +51,8 @@ var onRemoveAll = function onRemoveAll() {
 };
 
 var appRoot = document.getElementById('app');
+
+// const numbers = [55, 101, 1000];
 
 var renderIndecisionApp = function renderIndecisionApp() {
   var template = React.createElement(
@@ -85,16 +86,14 @@ var renderIndecisionApp = function renderIndecisionApp() {
     React.createElement(
       'ol',
       null,
-      React.createElement(
-        'li',
-        null,
-        'Item One'
-      ),
-      React.createElement(
-        'li',
-        null,
-        'Item Two'
-      )
+      app.options.map(function (option) {
+        return React.createElement(
+          'li',
+          { key: option },
+          'Your Input: ',
+          option
+        );
+      })
     ),
     React.createElement(
       'form',
