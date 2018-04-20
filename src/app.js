@@ -48,6 +48,14 @@ const onRemoveAll= () => {
   renderIndecisionApp();
 };
 
+const onMakeDecision = () => {
+  const randomNum = Math.floor(Math.random() * app.options.length);
+  // create a new const for the selected option and we are going to dig into the options array
+  const option = app.options[randomNum];
+  alert(option);
+  console.log(randomNum);
+};
+
 const appRoot = document.getElementById('app');
 
 // const numbers = [55, 101, 1000];
@@ -63,6 +71,7 @@ const renderIndecisionApp = () => {
      {/* <p>{app.subtitle}</p> */}
      <p>{app.options.length}</p>
      {/* <p>{app.option}</p> */}
+     <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
      <button onClick={onRemoveAll}>REMOVE ALL</button>
      {/* {
        numbers.map((number) => {
