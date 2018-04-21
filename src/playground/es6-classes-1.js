@@ -17,12 +17,58 @@ class Person {
     return `Hi. I am ${ this.name }!`;
   }
   getDescription() {
-    return `${this.name} is ${this.age} year(s) old`;
+    return `${this.name} is ${this.age} year(s) old.`;
   }
 }
 
-const me = new Person('Matthew', 33);
-console.log(me.getDescription());
+// we are creating a new class Student that will inherit same properties as Person. In Ruby we would call super(name, age) in the initialize method of the class Student < Person
+class Student extends Person {
+  constructor(name, age, major = 'Undecided') {
+    super(name, age);
+    this.major = major;
+  }
+  hasMajor() {
+    // used the logical NOT operator flip it twice??
+    return !!this.major;
+  }
+  // here we are overiding the same method from the Person class by defining the same method in the Student class 👇
+  getDescription() {
+    // by calling let description = super.getDescription(); we call that method
+    let description = super.getDescription();
+
+    // below if (this.hasMajor()) checks if student has major is true
+    if (this.hasMajor()) {
+      description += `..Their major is ${this.major}.`;
+    }
+
+    return description;
+  }
+}
+
+class Traveller extends Person {
+  constructor(name, age, homeLocation) {
+    super(name, age);
+    this.homeLocation = homeLocation;
+  }
+  getGreeting() {
+    let greeting = super.getGreeting();
+
+    if(this.homeLocation) {
+      greeting += ` I am visiting from ${this.homeLocation}.`;
+    }
+
+    return greeting;
+  }
+}
+
+const me = new Traveller('Matthew', 33, 'Vancouver');
+console.log(me.getGreeting());
+
+
+
+
+// const me = new Person('Matthew', 33);
+// console.log(me.getDescription());
 
 // const other = new Person();
 // console.log(other.getGreeting());
