@@ -1,129 +1,72 @@
-console.log('App.js is running!');
-
-// create app object with title/subtitle
-// use title and subtitle in the template
-// render template
-
-// going to be using if statements, ternary objects and
-// only render subtitle (and p tag) if subtitle exists - &&
-// render new p tag - if options.length > 0 "Here are your options" "No options"
-
-const app = {
-  title: 'Indecision APP',
-  // subtitle: 'No Longer here',
-  // options: ['One', 'Two']
-  options: []
-};
-
-// write a function called getSubtitle that takes an arguement and renders jsexpression {app.subtitle} if it exists
-// function getSubtitle(subtitle) {
-//   if (subtitle) {
-//     return <p>{app.subtitle}</p>
-//   }
-// }
-
-// JSX- is JavaScript XML
-// the {} denotes js expressions where we can render js objects.properties
-// We can't render objects only expressions
-// ***SECTION 3 LECTURE 18 Forms and Inputs:
-// we added our basic <form> tag and an <input type>
-// we want to grab the input from the user to do this we create a <const> to hold that value
-// to dig into the form we use <e.target>
-// e.targer points to the element the event started on which in this case is form which we gave name "option" and we want to get <.value>
-const onFormSubmit = (e) => {
-  e.preventDefault();
-  console.log('form submitted');
-
-  const option = e.target.elements.option.value;
-  if (option) {
-    app.options.push(option);
-    console.log(option);
-    e.target.elements.option.value = '';
-    renderIndecisionApp();
+class IndecisionApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Action />
+        <Options />
+        <AddOption />
+      </div>
+    );
   }
-};
+}
 
-const onRemoveAll= () => {
-  app.options = [];
-  renderIndecisionApp();
-};
+// a react component is just an es6 class
+// we use the global REACT with the COMPONENT class value which gives us all the react features
+// REact components all REQUIRE one method: render
+class Header extends React.Component {
+  render() {
+    return (
+      <dix>
+        <h1>Indecision</h1>
+        <h2>Put your life in hands computer</h2>
+      </dix>
+    );
+  }
+}
 
-const onMakeDecision = () => {
-  const randomNum = Math.floor(Math.random() * app.options.length);
-  // create a new const for the selected option and we are going to dig into the options array
-  const option = app.options[randomNum];
-  alert(option);
-  console.log(randomNum);
-};
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>What should I do?</button>
+      </div>
+    );
+  }
+}
 
-const appRoot = document.getElementById('app');
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Options component goes here</p>
+        <Option />
+      </div>
+    );
+  }
+}
 
-// const numbers = [55, 101, 1000];
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+        OPTION Component Here
+      </div>
+    );
+  }
+}
 
-const renderIndecisionApp = () => {
-  const template = (
-   <div>
-     <h1>{app.title}</h1>
-     {app.subtitle && <p>{app.subtitle}</p>}
-     {/* {getSubtitle(app.subtitle)} */}
-     {/* checking if app.optons.length is greater than 0 '?' (if it is then) ':' (if not) */}
-     <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'  }</p>
-     {/* <p>{app.subtitle}</p> */}
-     <p>{app.options.length}</p>
-     {/* <p>{app.option}</p> */}
-     <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
-     <button onClick={onRemoveAll}>REMOVE ALL</button>
-     {/* {
-       numbers.map((number) => {
-         return <p key={number}>Number: {number}</p>;
-       })
-     } */}
-     {/* we have an array of jsx */}
-     <ol>
-       {
-         app.options.map((option) => <li key={option}>Your Input: {option}</li>)
-       }
-     </ol>
-     <form onSubmit={onFormSubmit}>
-       <input type="text" name="option"/>
-       <button>Add Option</button>
-     </form>
-   </div>
-  );
-  ReactDOM.render(template, appRoot);
-};
+class AddOption extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>AddOptions component goes here</p>
+      </div>
+    );
+  }
+}
 
-renderIndecisionApp();
-// we can reference any js variable inside our h1 using JS expressions via curly braces
-// this means we can add methods to the end of that JS expression
-// undefined null are ignored by jsx
-// const user = {
-//   name: 'Andres',
-//   age: 22,
-//   location: 'Philly'
-// };
-// we can write ES5 functions that return a string and then render that JS function as an expression inside our template below ie: {getLocation()}
-// getLocation now takes an arguement  (location)
-// in our 'if' statement below we check <if (location) exists> we will return that location
-// if it doesnt exist we are going to return the static string of 'unknown'
-// if an expression resolves to 'undefined' as in else return undefines; it will display nothing
-// function getLocation(location){
-//   if (location) {
-//     return <p>Location: {location}</p>;
-//   }
-// }
-// var userName = 'Stan';
-// var userAge = 45;
-// var userLocation = 'San Fransisco'
-// the logical && operator is good for doing something or nothing at all
-// const template2 = (
-//   <div>
-//     <h1>{user.name ? user.name : 'Anonymous'}</h1>
-//     {(user.age && user.age >= 18 ) && <p>AGE: {user.age}</p>}
-//     {/* <p>Age: {user.age}</p> */}
-//     {getLocation(user.location)}
-//     {/* <h1>{userName.toUpperCase()}</h1>
-//     <p>Age: {userAge}</p>
-//     <p>Location: {userLocation}</p> */}
-//   </div>
-// );
+// to render a react component we use our CLASS NAME hence uppercase Header that looks like custom html
+
+// to render we must use ReactDOM.render
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
