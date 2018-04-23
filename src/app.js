@@ -1,13 +1,39 @@
 class IndecisionApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+    this.state = {
+      options: ['thing one', 'Thing two', 'Thing four', 'Thing three']
+    };
+  }
+  handleDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: []
+      };
+    });
+  }
+  handlePick() {
+    const randomNum = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[randomNum];
+    alert(option);
+  }
   render() {
     const title = 'Indecision';
     const subtitle = 'Put your life in hands computer';
-    const options = ['thing one', 'Thing two', 'Thing four', 'Thing 11']
+
     return (
       <div>
         <Header title={title} subtitle={subtitle} />
-        <Action />
-        <Options options={options} />
+        <Action
+          hasOptions={this.state.options.length > 0}
+          handlePick={this.handlePick}
+        />
+        <Options
+          options={this.state.options}
+          handleDeleteOptions={this.handleDeleteOptions}
+        />
         <AddOption />
       </div>
     );
@@ -30,30 +56,28 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
-  handlePick() {
-    alert('handlePick');
-  }
+  // handlePick() {
+  //   alert('handlePick');
+  // }
   render() {
     return (
       <div>
-        <button onClick={this.handlePick}>What should I do?</button>
+        <button
+          onClick={this.props.handlePick}
+          disabled={!this.props.hasOptions}
+        >
+          What should I do?
+        </button>
       </div>
     );
   }
 }
 
 class Options extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleRemoveAll = this.handleRemoveAll.bind(this);
-  }
-  handleRemoveAll() {
-    alert('She Gone');
-  }
   render() {
     return (
       <div>
-        <button onClick={this.handleRemoveAll}>Remove All</button>
+        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
         {
           this.props.options.map((option) => <Option key={option} optionText={option}/>)
         }
@@ -100,6 +124,7 @@ class AddOption extends React.Component {
 // to render we must use ReactDOM.render
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 
+
 // Section 4 Lecture 18 : COMPONENT properties
 
 // We are going to pass data in everytime we intialize a component (such as the header title of each page), this data is called PROPS
@@ -122,6 +147,7 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 // then inside Option component we set up jsx rendering {this.props.optionText}
 // this gives us a ton of flexibility to change what option looks like. We can add text in front of {this.props.optionText} and it shows up for all the options
 
+
 // Section 4 Lecture 29: EVENTS AND METHODS
 
 // Apply jsx event handlers to class based components like Action
@@ -143,6 +169,7 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 // binds our (this) correctly to handleRemoveAll inside constructor method of the class object Options
 // it only does this once when page first gets rendered. Why is this important? no idea
 
+
 // Section 4 Lecture 31: WHAT IS COMPONENT STATE? (this.state)
 
 // component state allows our components to manage data, when data changes, component will AUTOMATICALLY re-render
@@ -155,3 +182,21 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 // our component state is just an object, a set of key: value pairs
 // this state object can changed off of some event
 // like the finishing of an http event that gets some json data from an api
+
+// SECTION 4 LECTURE 36: Setting State on INDECISION APP PT1
+
+// We want to take the data like options and turn that into state
+// to do that we define our constructor(props) on the class IndecisionApp
+// add super(props) and then go ahead and set this.state = {}
+// instead of referencing options array that we had defined, we ref this.state.options and then delete our const options
+
+// props can get passed from a parent to a child, but our children cant pass props upstream
+// to reverse that one way data flow, we are going to pass functions in as props
+// we define a method below constructor that will then be able to call the function that can delete all the options from the array called handleDeleteOptions
+// we pass this method down into the return in the <Options /> and add a new props
+// now we will have access to this method via the prop name inside the options component
+// Inside options we delete our constructor function and the handleRemoveAll
+// then we change onClick method in the button ={this.props.handleDeleteOptions} we DO NOT CALL IT
+// NOW, when the button gets clicked, it will call the handleDeleteOptions method, the method lives up top and that will wipe the state
+// like all of our event handlers we bind this.handleDeleteOptions = this.handleDeleteOptions.bind(this); to bind to current instance
+//

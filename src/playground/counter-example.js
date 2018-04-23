@@ -94,7 +94,7 @@ ReactDOM.render(<Counter />, document.getElementById('app'));
 //
 // // the virtual DOM algorithm runs in the background and calculates what element needs to change
 
-// SECTION 4 LECTURE 33 : ADDING STATE TO COUNTER APP
+// SECTION 4 LECTURE 33/34 : ADDING STATE TO COUNTER APP
 
 // Step 1: we set this.state = an object {} and set count: 0
 // Step 2: in our render() function we set Count: {this.state.count}, this dynamically renders our count
@@ -103,3 +103,6 @@ ReactDOM.render(<Counter />, document.getElementById('app'));
 // this.setState is a function and it gets called with a single arguement that is a function () => {return{count:}}
 // if we want to get the old value so we can increment by one we have access to the current state values via the first arguement which we call (prevState)
 // we have set up our first object state, and updated our state dynamically
+
+// this.setState is ASYNCHRONOUS
+// ALWAYS USE this.setState with an updater funtion =>
