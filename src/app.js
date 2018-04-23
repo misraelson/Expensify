@@ -21,10 +21,10 @@ class Header extends React.Component {
   render() {
    console.log(this.props)
     return (
-      <dix>
+      <div>
         <h1>{this.props.title}</h1>
         <h2>{this.props.subtitle}</h2>
-      </dix>
+      </div>
     );
   }
 }
@@ -43,6 +43,10 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
   handleRemoveAll() {
     alert('She Gone');
   }
@@ -129,3 +133,25 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 // then above inside the component (CLASS METHOD) we defined handleAddOption(e) that took in our event
 // defined a const variable called option and set it equal to e.target.elements.option.value.trim()
 // set the if(option) to return our alert(option) which will display the value of option in the flash message, so if option exists (is true) then alert(option)
+
+// Section 4 Lecture 30: METHOD HANDLE BINDING ON .this
+
+// added: constructor(props) {
+//          super(props);
+//          this.handleRemoveAll = this.handleRemoveAll.bind(this);
+//        }
+// binds our (this) correctly to handleRemoveAll inside constructor method of the class object Options
+// it only does this once when page first gets rendered. Why is this important? no idea
+
+// Section 4 Lecture 31: WHAT IS COMPONENT STATE? (this.state)
+
+// component state allows our components to manage data, when data changes, component will AUTOMATICALLY re-render
+// no more manually calling render()
+// we need a default state value
+// component rendered with default state values
+// change state based on event
+// component re-rendering using new state values
+// start at new value
+// our component state is just an object, a set of key: value pairs
+// this state object can changed off of some event
+// like the finishing of an http event that gets some json data from an api
