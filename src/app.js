@@ -5,15 +5,11 @@ class IndecisionApp extends React.Component {
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
     this.state = {
-      options: []
+      options: props.options
     };
   }
   handleDeleteOptions() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    });
+    this.setState(() => ({ options: [] }));
   }
   handlePick() {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
@@ -34,12 +30,11 @@ class IndecisionApp extends React.Component {
     });
   }
   render() {
-    const title = 'Indecision';
     const subtitle = 'Put your life in hands computer';
 
     return (
       <div>
-        <Header title={title} subtitle={subtitle} />
+        <Header subtitle={subtitle} />
         <Action
           hasOptions={this.state.options.length > 0}
           handlePick={this.handlePick}
@@ -56,6 +51,10 @@ class IndecisionApp extends React.Component {
   }
 }
 
+IndecisionApp.defaultProps = {
+  options: []
+}
+
 // a REACT COMPONENT is just an ES6 CLASS OBJECT
 // we use the global REACT with the COMPONENT class value which gives us all the react features
 // REact components all REQUIRE one method: render
@@ -64,10 +63,14 @@ const Header = (props) => {
   return (
     <div>
       <h1>{props.title}</h1>
-      <h2>{props.subtitle}</h2>
+      {props.subtitle && <h2>{props.subtitle}</h2>}
     </div>
   );
 };
+
+Header.defaultProps = {
+  title: 'Indecision'
+}
 
 const Action = (props) => {
   return (
@@ -135,7 +138,7 @@ class AddOption extends React.Component {
 // to render a react component we use our CLASS NAME hence uppercase Header that looks like custom html
 
 // to render we must use ReactDOM.render
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
+ReactDOM.render(<IndecisionApp options={['Deveils Den', 'Second District']}/>, document.getElementById('app'))
 
 
 // Section 4 Lecture 18 : COMPONENT properties
@@ -289,3 +292,8 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 
 // Class based components are for HANDLING STATE
 // function based components are for showing things
+
+// SECTION 5 LECTURE 43: Removing Individual Options
+// we discovered new syntax for setting this.setState()
+// on handleDeleteOptions we changed to this: this.setState(() => ({ options: [] }));
+// 
