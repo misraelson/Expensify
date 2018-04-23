@@ -84,144 +84,78 @@ var IndecisionApp = function (_React$Component) {
   return IndecisionApp;
 }(React.Component);
 
-// a react component is just an es6 class
+// a REACT COMPONENT is just an ES6 CLASS OBJECT
 // we use the global REACT with the COMPONENT class value which gives us all the react features
 // REact components all REQUIRE one method: render
 
+var Header = function Header(props) {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      props.title
+    ),
+    React.createElement(
+      'h2',
+      null,
+      props.subtitle
+    )
+  );
+};
 
-var Header = function (_React$Component2) {
-  _inherits(Header, _React$Component2);
+var Action = function Action(props) {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'button',
+      {
+        onClick: props.handlePick,
+        disabled: !props.hasOptions
+      },
+      'What should I do?'
+    )
+  );
+};
 
-  function Header() {
-    _classCallCheck(this, Header);
+var Options = function Options(props) {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'button',
+      { onClick: props.handleDeleteOptions },
+      'Remove All'
+    ),
+    props.options.map(function (option) {
+      return React.createElement(Option, { key: option, optionText: option });
+    })
+  );
+};
 
-    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-  }
+var Option = function Option(props) {
+  return React.createElement(
+    'div',
+    null,
+    props.optionText
+  );
+};
 
-  _createClass(Header, [{
-    key: 'render',
-    value: function render() {
-      console.log(this.props);
-      return React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'h1',
-          null,
-          this.props.title
-        ),
-        React.createElement(
-          'h2',
-          null,
-          this.props.subtitle
-        )
-      );
-    }
-  }]);
-
-  return Header;
-}(React.Component);
-
-var Action = function (_React$Component3) {
-  _inherits(Action, _React$Component3);
-
-  function Action() {
-    _classCallCheck(this, Action);
-
-    return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
-  }
-
-  _createClass(Action, [{
-    key: 'render',
-
-    // handlePick() {
-    //   alert('handlePick');
-    // }
-    value: function render() {
-      return React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'button',
-          {
-            onClick: this.props.handlePick,
-            disabled: !this.props.hasOptions
-          },
-          'What should I do?'
-        )
-      );
-    }
-  }]);
-
-  return Action;
-}(React.Component);
-
-var Options = function (_React$Component4) {
-  _inherits(Options, _React$Component4);
-
-  function Options() {
-    _classCallCheck(this, Options);
-
-    return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
-  }
-
-  _createClass(Options, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'button',
-          { onClick: this.props.handleDeleteOptions },
-          'Remove All'
-        ),
-        this.props.options.map(function (option) {
-          return React.createElement(Option, { key: option, optionText: option });
-        })
-      );
-    }
-  }]);
-
-  return Options;
-}(React.Component);
-
-var Option = function (_React$Component5) {
-  _inherits(Option, _React$Component5);
-
-  function Option() {
-    _classCallCheck(this, Option);
-
-    return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
-  }
-
-  _createClass(Option, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'div',
-        null,
-        this.props.optionText
-      );
-    }
-  }]);
-
-  return Option;
-}(React.Component);
-
-var AddOption = function (_React$Component6) {
-  _inherits(AddOption, _React$Component6);
+var AddOption = function (_React$Component2) {
+  _inherits(AddOption, _React$Component2);
 
   function AddOption(props) {
     _classCallCheck(this, AddOption);
 
-    var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
-    _this6.handleAddOption = _this6.handleAddOption.bind(_this6);
-    _this6.state = {
+    _this2.handleAddOption = _this2.handleAddOption.bind(_this2);
+    _this2.state = {
       error: undefined
     };
-    return _this6;
+    return _this2;
   }
 
   _createClass(AddOption, [{
@@ -371,3 +305,54 @@ ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementByI
 // we then put a jsx above our form {this.state.error && <p>{this.state.error}</p>} this checks if this.state.error is truthy or falsy (undefined is falsy)
 // use the logical && operator to conditionally render a paragraph when the error is actually set
 // inside <p> the text comes from the error itself {this.state.error}
+
+// SECTION 5 LECTURE 40 STATELESS FUNCTIONAL COMPONENTS
+
+// converting components to stateles functional components
+// some are very simple presentational components, they do not need to be class state based components
+// addOption uses state so it needs to remain a class based component
+// new syntax is to make a constant that ends up being component name with UPPER CASE FIRST LETTER like const User
+// we set it equal to a function arrow function or use function keyword
+// this function is similar to the class components render methods
+// then we just return our jsx inside the function
+// stateless functional components do not have access to this. PROPS get passed in to the function (props)
+// to convert a class based component to a stateless functional component:
+// first create a new const and name it the same. the function is almost the same as render () so copy the return()
+// scan jsx to make sure there is no this.
+
+// OLD HEADER
+
+// class Header extends React.Component {
+//   render() {
+//    console.log(this.props)
+//     return (
+//       <div>
+//         <h1>{this.props.title}</h1>
+//         <h2>{this.props.subtitle}</h2>
+//       </div>
+//     );
+//   }
+// }
+
+// OLD ACTION class based components
+
+// class Action extends React.Component {
+//   // handlePick() {
+//   //   alert('handlePick');
+//   // }
+//   render() {
+//     return (
+//       <div>
+//         <button
+//           onClick={this.props.handlePick}
+//           disabled={!this.props.hasOptions}
+//         >
+//           What should I do?
+//         </button>
+//       </div>
+//     );
+//   }
+// }
+
+// Class based components are for HANDLING STATE
+// function based components are for showing things

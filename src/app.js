@@ -56,62 +56,50 @@ class IndecisionApp extends React.Component {
   }
 }
 
-// a react component is just an es6 class
+// a REACT COMPONENT is just an ES6 CLASS OBJECT
 // we use the global REACT with the COMPONENT class value which gives us all the react features
 // REact components all REQUIRE one method: render
-class Header extends React.Component {
-  render() {
-   console.log(this.props)
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
-}
 
-class Action extends React.Component {
-  // handlePick() {
-  //   alert('handlePick');
-  // }
-  render() {
-    return (
-      <div>
-        <button
-          onClick={this.props.handlePick}
-          disabled={!this.props.hasOptions}
-        >
-          What should I do?
-        </button>
-      </div>
-    );
-  }
-}
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
+};
 
-class Options extends React.Component {
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-        {
-          this.props.options.map((option) => <Option key={option} optionText={option}/>)
-        }
-        {/* <Option /> */}
-      </div>
-    );
-  }
-}
+const Action = (props) => {
+  return (
+    <div>
+      <button
+        onClick={props.handlePick}
+        disabled={!props.hasOptions}
+      >
+        What should I do?
+      </button>
+    </div>
+  );
+};
 
-class Option extends React.Component {
-  render() {
-    return (
-      <div>
-        {this.props.optionText}
-      </div>
-    );
-  }
-}
+const Options = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {
+        props.options.map((option) => <Option key={option} optionText={option}/>)
+      }
+    </div>
+  );
+};
+
+const Option = (props) => {
+  return (
+    <div>
+      {props.optionText}
+    </div>
+  );
+};
 
 class AddOption extends React.Component {
   constructor(props) {
@@ -250,3 +238,54 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 // we then put a jsx above our form {this.state.error && <p>{this.state.error}</p>} this checks if this.state.error is truthy or falsy (undefined is falsy)
 // use the logical && operator to conditionally render a paragraph when the error is actually set
 // inside <p> the text comes from the error itself {this.state.error}
+
+// SECTION 5 LECTURE 40 STATELESS FUNCTIONAL COMPONENTS
+
+// converting components to stateles functional components
+// some are very simple presentational components, they do not need to be class state based components
+// addOption uses state so it needs to remain a class based component
+// new syntax is to make a constant that ends up being component name with UPPER CASE FIRST LETTER like const User
+// we set it equal to a function arrow function or use function keyword
+// this function is similar to the class components render methods
+// then we just return our jsx inside the function
+// stateless functional components do not have access to this. PROPS get passed in to the function (props)
+// to convert a class based component to a stateless functional component:
+// first create a new const and name it the same. the function is almost the same as render () so copy the return()
+// scan jsx to make sure there is no this.
+
+// OLD HEADER
+
+// class Header extends React.Component {
+//   render() {
+//    console.log(this.props)
+//     return (
+//       <div>
+//         <h1>{this.props.title}</h1>
+//         <h2>{this.props.subtitle}</h2>
+//       </div>
+//     );
+//   }
+// }
+
+// OLD ACTION class based components
+
+// class Action extends React.Component {
+//   // handlePick() {
+//   //   alert('handlePick');
+//   // }
+//   render() {
+//     return (
+//       <div>
+//         <button
+//           onClick={this.props.handlePick}
+//           disabled={!this.props.hasOptions}
+//         >
+//           What should I do?
+//         </button>
+//       </div>
+//     );
+//   }
+// }
+
+// Class based components are for HANDLING STATE
+// function based components are for showing things
