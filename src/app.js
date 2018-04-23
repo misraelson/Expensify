@@ -3,8 +3,9 @@ class IndecisionApp extends React.Component {
     super(props);
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
+    this.handleAddOption = this.handleAddOption.bind(this);
     this.state = {
-      options: ['thing one', 'Thing two', 'Thing four', 'Thing three']
+      options: []
     };
   }
   handleDeleteOptions() {
@@ -18,6 +19,19 @@ class IndecisionApp extends React.Component {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
     alert(option);
+  }
+  handleAddOption(option) {
+    if (!option) {
+      return 'Enter valid value to add item';
+    } else if (this.state.options.indexOf(option) > -1) {
+      return 'This option already exists';
+    }
+
+    this.setState((prevState) => {
+      return {
+        options: prevState.options.concat(option)
+      };
+    });
   }
   render() {
     const title = 'Indecision';
@@ -34,7 +48,9 @@ class IndecisionApp extends React.Component {
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
         />
-        <AddOption />
+        <AddOption
+          handleAddOption={this.handleAddOption}
+        />
       </div>
     );
   }
@@ -98,18 +114,27 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleAddOption = this.handleAddOption.bind(this);
+    this.state = {
+      error: undefined
+    };
+  }
   handleAddOption(e) {
     e.preventDefault();
 
     const option = e.target.elements.option.value.trim();
+    const error = this.props.handleAddOption(option);
 
-    if (option) {
-      alert(option);
-    }
+    this.setState(() => {
+      return { error };
+    });
   }
   render() {
     return (
       <div>
+        {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.handleAddOption}>
           <input type="text" name="option" />
           <button>Add Option</button>
@@ -199,4 +224,29 @@ ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
 // then we change onClick method in the button ={this.props.handleDeleteOptions} we DO NOT CALL IT
 // NOW, when the button gets clicked, it will call the handleDeleteOptions method, the method lives up top and that will wipe the state
 // like all of our event handlers we bind this.handleDeleteOptions = this.handleDeleteOptions.bind(this); to bind to current instance
-//
+
+// LECTURE 37 Indecision PT2
+
+// now we are trying to pass data up from our option form
+// create new function handleAddOption that takes an argument
+
+// components are all returned in the inside the constructor at the top. this is where we give our components access to the methods via this prop handleAddOption
+// then we can call that prop down in the class AddOption
+// we kept the handleAddOption(e) methods
+// we are using .this inside of handleAddOption so we set up the constructor function
+// we have two handleAddOption methods now, one built into the component and one passed down from the parent that will manipulate things in terms of that state
+
+// ADDING FORM VALIDATION
+// we add some conditional logic for adding options on handleAddOption
+// add an if statement under handleAddOption(option)
+// inside of our handleAddOption method inside the class AddOption we remove the if statement
+// create a const error = set equal to whatever comes back this.props.handleAddOption(option);
+// we then set component state on class AddOption because the error message is specific to the form object
+// set this.state as a defualt value = { error: undefined }
+// now when they do submit the form with an error we want to update the error state using this.setState and an updater function
+// inside updater function we return our object and set error: error
+// in ES6 when we have a property whos value comes from a variable of the same name we can leave it off so just {error} is fine
+// so we are correctly setting the error, if it comes back as undefined we are wiping it, if it comes back as a string we are setting it
+// we then put a jsx above our form {this.state.error && <p>{this.state.error}</p>} this checks if this.state.error is truthy or falsy (undefined is falsy)
+// use the logical && operator to conditionally render a paragraph when the error is actually set
+// inside <p> the text comes from the error itself {this.state.error}
