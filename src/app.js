@@ -5,6 +5,29 @@ import IndecisionApp from './components/IndecisionApp';
 ReactDOM.render(<IndecisionApp options={[]}/>, document.getElementById('app'))
 
 
+
+// class OldSyntax {
+//   constructor() {
+//     this.name = "Matt";
+//   }
+//   getGreeting() {
+//     return 'Hi, My name is ${this.name}.';
+//   }
+// }
+// const oldSyntax = new OldSyntax();
+// console.log(oldSyntax);
+//
+// // --------------
+//
+// class NewSyntax {
+//   name = 'Jen';
+//   getGreeting = () => {
+//     return 'Hi, My name is ${this.name}.';
+//   }
+// }
+// const newSyntax = new NewSyntax();
+// console.log(newSyntax);
+
 // const template = <p>THIS IS JSX FROM WEBPACK BITCH!</p>
 // ReactDOM.render(template, document.getElementById('app'));
 
