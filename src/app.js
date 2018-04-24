@@ -9,6 +9,24 @@ class IndecisionApp extends React.Component {
       options: props.options
     };
   }
+  componentDidMount() {
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+
+      if (options) {
+        this.setState(() => ({ options }));
+      }
+    } catch (e) {
+      // do nothing at all
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.options.length !== this.state.options.length) {
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json);
+    }
+  }
   handleDeleteOptions() {
     this.setState(() => ({ options: [] }));
   }
@@ -93,6 +111,7 @@ const Options = (props) => {
   return (
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {props.options.length === 0 && <p>Please add an option to get started!</p>}
       {
         props.options.map((option) => (
           <Option
@@ -136,6 +155,10 @@ class AddOption extends React.Component {
     const error = this.props.handleAddOption(option);
 
     this.setState(() => ({ error }));
+
+    if (!error) {
+      e.target.elements.option.value = '';
+    }
   }
   render() {
     return (
@@ -153,7 +176,7 @@ class AddOption extends React.Component {
 // to render a react component we use our CLASS NAME hence uppercase Header that looks like custom html
 
 // to render we must use ReactDOM.render
-ReactDOM.render(<IndecisionApp options={['Deveils Den', 'Second District']}/>, document.getElementById('app'))
+ReactDOM.render(<IndecisionApp options={[]}/>, document.getElementById('app'))
 
 
 // Section 4 Lecture 18 : COMPONENT properties
@@ -311,4 +334,17 @@ ReactDOM.render(<IndecisionApp options={['Deveils Den', 'Second District']}/>, d
 // SECTION 5 LECTURE 43: Removing Individual Options
 // we discovered new syntax for setting this.setState()
 // on handleDeleteOptions we changed to this: this.setState(() => ({ options: [] }));
-//
+// we created a method an passed it down multiple layers, first to options, then to option
+// that allows the Option component to determine when it should be removed ie when the button is clicked
+// when the remove button gets clicked we dont just call the method directly we define a little function that allows us to call the method with an e
+
+// Section 5 Lecture 44 LIFECYCLE METHODS **
+
+// first lifecycle method we learn is componentDidMount
+// lifecycle methods are only avaible in class based components
+// componentDidUpdate fires after teh component updates
+// so after state value change or prop value change
+// that means we can do something after the options array updates
+
+// we are going to use json to store things to localStorage JSON.stringify takes a reg js object and turn into string
+// add componentDidUpdate and componentDidMount to add methods to store our data locally via json
