@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const template = React.createElement('p', {}, 'testing 123');
+const template = <p>THIS IS JSX FROM WEBPACK BITCH!</p>
 ReactDOM.render(template, document.getElementById('app'));
 
 
@@ -51,3 +51,7 @@ ReactDOM.render(template, document.getElementById('app'));
 // check out the validator docs want to use isEmail('string') method
 
 // we imported the validator library from validator
+
+// CANT just use jsx inside web pack without first teaching webpack how to run babel
+// we use the babel loader to do this. we made a rule inside webpack.config.js that specifies that whenever you see a file that ends in .js and IS NOT in the node modules folder, go ahead and run it through babel
+// this includes app.js and anything app.js imports
