@@ -348,3 +348,10 @@ ReactDOM.render(<IndecisionApp options={[]}/>, document.getElementById('app'))
 
 // we are going to use json to store things to localStorage JSON.stringify takes a reg js object and turn into string
 // add componentDidUpdate and componentDidMount to add methods to store our data locally via json
+
+// LECTURE 46 WEBPACK
+// webpack allows us to make a single request for a single script src
+// webpack breaks up all of our files in our project that can communicate with eachother
+// we are going to be breaking all our components into their own files using webpack
+// we can also install dependencies using yarn and npm and use them
+// 
