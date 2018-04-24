@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import IndecisionApp from './components/IndecisionApp';
 
-const template = <p>THIS IS JSX FROM WEBPACK BITCH!</p>
-ReactDOM.render(template, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp options={[]}/>, document.getElementById('app'))
 
+
+// const template = <p>THIS IS JSX FROM WEBPACK BITCH!</p>
+// ReactDOM.render(template, document.getElementById('app'));
 
 // import validator from 'validator';
 //
@@ -55,3 +58,5 @@ ReactDOM.render(template, document.getElementById('app'));
 // CANT just use jsx inside web pack without first teaching webpack how to run babel
 // we use the babel loader to do this. we made a rule inside webpack.config.js that specifies that whenever you see a file that ends in .js and IS NOT in the node modules folder, go ahead and run it through babel
 // this includes app.js and anything app.js imports
+
+// moved all of our coponents outside app.js into their own component files and imported them into app.js
