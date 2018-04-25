@@ -1,0 +1,13 @@
+// rem
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+// learned how to break up our styles into multiple files
+// these get imported into our main styles file
+// this is our base partial that defines our global font family

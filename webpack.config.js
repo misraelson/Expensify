@@ -13,6 +13,13 @@ module.exports = {
       loader: 'babel-loader',
       test: /\.js$/,
       exclude: /node_modules/
+    }, {
+      test: /\.s?css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
     }]
   },
   devtool: 'cheap-module-eval-source-map',
@@ -29,3 +36,8 @@ module.exports = {
 
 // we set up loader with rules for webpack in Lecture 54
 // added a test that uses regexpressions to look for files that end with .js
+
+// added a rule to look for .css files test: /\.css$/
+// https://www.npmjs.com/package/style-loader
+
+// added sass loader: yarn add sass-loader@6.0.6 node-sass@4.5.3
