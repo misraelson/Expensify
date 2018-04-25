@@ -4,8 +4,9 @@ html {
 }
 
 body {
+  background: $dark-blue;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 1.6rem;
+  font-size: $m-size;
 }
 
 // learned how to break up our styles into multiple files
