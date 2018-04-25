@@ -2,7 +2,7 @@ import React from 'react';
 
 const Action = (props) => (
   <div>
-    <button
+    <button className="big-button"
       onClick={props.handlePick}
       disabled={!props.hasOptions}
     >
@@ -12,3 +12,6 @@ const Action = (props) => (
 );
 
 export default Action;
+
+// with ES6 'class' is a reserved word so to give styling to our elements we use className="description"
+// then over in our _button.scss partial we can give that button custom styling

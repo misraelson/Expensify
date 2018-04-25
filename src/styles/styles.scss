@@ -1,6 +1,8 @@
 @import './base/settings';
 @import './base/base';
+@import './components/button';
 @import './components/container';
 @import './components/header';
 
-//
+
+// styles master file imports all our other style partials for our components and buttons etc

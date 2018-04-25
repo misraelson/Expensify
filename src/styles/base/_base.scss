@@ -9,6 +9,14 @@ body {
   font-size: $m-size;
 }
 
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
 // learned how to break up our styles into multiple files
 // these get imported into our main styles file
 // this is our base partial that defines our global font family
