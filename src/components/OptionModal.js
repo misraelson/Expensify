@@ -7,10 +7,12 @@ const OptionModal = (props) => (
     isOpen={!!props.selectedOption}
     onRequestClose={props.handleCloseModal}
     contentLabel="Selected Option"
+    closeTimeoutMS={200}
+    className="modal"
     >
-    <h3>Selected Option</h3>
-    {props.selectedOption && <p>{props.selectedOption}</p>}
-    <button onClick={props.handleCloseModal}>Okay</button>
+    <h3 className="modal__title">Selected Option</h3>
+    {props.selectedOption && <p className="modal__body">{props.selectedOption}</p>}
+    <button className="button" onClick={props.handleCloseModal}>Okay</button>
   </Modal>
 );
 
@@ -59,3 +61,7 @@ export default OptionModal;
 // handleCloseModal={this.handleCloseModal} now the Modal component has access to handleCloseModal as a PROP
 // when does it need to call it? when the button gets clicked. so we set up an onClick
 // we reference {props.handleCloseModal} that causes the function to actually fire when the button gets clicked
+
+// STYLING
+// we added two props on <Modal> : closeTimeoutMS={200} & className="modal"
+// giving out modal a custom className allows us to style the modal inside our modal style partial
