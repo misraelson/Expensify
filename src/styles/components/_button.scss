@@ -6,13 +6,20 @@
   color: white;
   font-weight: bold;
   font-size: $l-size;
-  margin-bottom: $xl-size;
+  margin-bottom: $m-size;
   padding: 2.4rem;
   width: 100%;
 }
 
 .big-button:disabled {
   opacity: .5;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .big-button {
+    margin-bottom: $xl-size;
+    font-size: $xl-size;
+  }
 }
 
 // big-button
@@ -32,6 +39,7 @@
   color: $off-white;
   padding: 0;
 }
+
 
 // BEM the M is for modifier
 // above we create a modifier for the button block. this allows us to tweak the Add Option button

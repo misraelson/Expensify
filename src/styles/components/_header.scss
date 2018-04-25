@@ -1,7 +1,7 @@
 .header {
   background: $off-black;
   color: white;
-  margin-bottom: $xl-size;
+  margin-bottom: $m-size;
   padding: $m-size 0;
 }
 // BEM naming convention: Block Element Modifier
@@ -15,6 +15,12 @@
   font-size: $m-size;
   font-weight: 500;
   margin: 0;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .header {
+    margin-bottom: $xl-size;
+  }
 }
 
 // targeted header itself using className inside our <div> <h1> and <h2> to define our BEM's
