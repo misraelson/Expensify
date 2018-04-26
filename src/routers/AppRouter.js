@@ -13,9 +13,9 @@ const AppRouter = () => (
       <Header />
       <Switch>
         <Route path="/" component={ExpenseDashboardPage} exact={true} />
-        <Route path="/create" component={AddExpensePage}/>
-        <Route path="/edit" component={EditExpensePage}/>
-        <Route path="/help" component={HelpPage}/>
+        <Route path="/create" component={AddExpensePage} />
+        <Route path="/edit/:id" component={EditExpensePage} />
+        <Route path="/help" component={HelpPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
@@ -24,7 +24,7 @@ const AppRouter = () => (
 
 export default AppRouter;
 
-//
+// Lecture 76
 // installed react router DOM
 // created router configuration
 // just a single instance of <BrowserRouter> is required and we set up as many instances of <Route> as pages we have
@@ -49,3 +49,10 @@ export default AppRouter;
 // created new folder routers and new file AppRouter.js
 // created new const AppRouter and cut and pasted <BrowserRouter> and contents inside
 // Set up AppRouter to be export default
+// Lecture 81
+// Anytime we use a component inside a route we get some props passed down
+// setting up dynamic urls we edit the path="/edit" to path="/edit/:id"
+// not when we visit /edit/99 and crack open dev tools we see in our props under match: we have params: {id: 102}
+// now we can render this dynamically using jsx {props.match.params.id} THIS IS HOW WE GRAB SHIT TO DISPLAY TO SCREEN!
+// react router is only going to pass these props down to components that are actually used inside of a route
+// header WILL NOT have these props because its not inside a route
