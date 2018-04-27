@@ -1,3 +1,5 @@
+// OBJECT DESTRUCTURING
+
 // const person = {
 //   name: 'Andrew',
 //   age: 27,
@@ -20,17 +22,31 @@
 //   console.log(`It's ${temperature} in ${city}.`)
 // }
 
-const book = {
-  title: 'Ego is the enemy',
-  auther: 'Ryan Holiday',
-  publisher: {
-    // name: 'Penguin'
-  }
-};
+// const book = {
+//   title: 'Ego is the enemy',
+//   auther: 'Ryan Holiday',
+//   publisher: {
+//     // name: 'Penguin'
+//   }
+// };
+//
+// const { name: publisherName = 'Anonymous' } = book.publisher;
+//
+// console.log(publisherName);
 
-const { name: publisherName = 'Anonymous' } = book.publisher;
+// ARRAY destructuring
 
-console.log(publisherName);
+// const address = ['1299 S Juniper Street', 'Pistolberg', 'Pennsylvania', '19147'];
+// // for array destructuring we use square brackets
+// // inside goes ordered list of variable names
+// // if we dont want address and zip we leave the last one off and leave a comma in place of the first item
+// const [, city, state] = address;
+// console.log(`You are in ${city}, ${state}. `);
+
+const item = ['Coffee (hot)', '$2.00', '$2.50', '$2.75'];
+const [menuitem, , mediumPrice] = item;
+
+console.log(`A ${menuitem} costs ${mediumPrice}`);
 
 // Lecture 88
 // We can destructure object and their properties. we can pull things off of objects creating separate variables for those values
