@@ -1,11 +1,17 @@
 // we will learn how to use combineReducers to create multiple smaller functions and combine them together.
 import { createStore, combineReducers } from 'redux';
-import uuid from 'uuid';
+// import uuid from 'uuid';
+
+const uuid = require('uuid/v1');
 
 // ACTION GENERATORS
 // want to be able to ADD_EXPENSE
 const addExpense = (
-  { description = '', note = '', amount = 0, createdAt = 0
+  { 
+    description = '', 
+    note = '', 
+    amount = 0, 
+    createdAt = 0
   } = {}
 ) => ({
   type: 'ADD_EXPENSE',
@@ -17,6 +23,7 @@ const addExpense = (
     createdAt
   }
 });
+
 // REMOVE_EXPENSE
 const removeExpense = ({ id } = {}) => ({
   type: 'REMOVE_EXPENSE',
@@ -108,3 +115,14 @@ const demoState = {
 // now instead of being just an array we have an object with two properties
 // expenses property managed by expensesReducer etc.
 // how to we get our reducers to respond to specific actions?
+
+
+// spreading through user crashes our app because spread syntax on pbjects is not mainstream yet
+// we need to add a babel plugin babeljs.docs/plugins/transform-object-rest-spread
+// yarn add babel-plugin-transform-object-rest-spread@6.23.0
+const user = {
+  name: "Jen",
+  age: 24
+}
+
+console.log({...user});

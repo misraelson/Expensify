@@ -22,15 +22,15 @@
 //   console.log(`It's ${temperature} in ${city}.`)
 // }
 
-// const book = {
-//   title: 'Ego is the enemy',
-//   auther: 'Ryan Holiday',
-//   publisher: {
-//     // name: 'Penguin'
-//   }
-// };
-//
-// const { name: publisherName = 'Anonymous' } = book.publisher;
+const book = {
+  title: 'Ego is the enemy',
+  auther: 'Ryan Holiday',
+  publisher: {
+    name: 'Penguin'
+  }
+};
+
+const { name: publisherName = 'Anonymous' } = book.publisher;
 //
 // console.log(publisherName);
 
