@@ -1,20 +1,49 @@
 import { createStore } from 'redux';
 
-const store = createStore((state = { count: 0 }, action) => {
+// Action generators - function that return action objects LECTURE 90
+
+const incrementCount = ({ incrementBy = 1 } = {}) => ({
+  type: 'INCREMENT',
+  incrementBy
+});
+
+const decrementCount = ({ decrementBy = 1 } = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
+})
+
+// setCount
+const setCount = ({ count }) => ({
+  type: 'SET',
+  count
+});
+
+// resetCount
+const resetCount = () => ({
+  type: 'RESET'
+});
+
+// REDUCERS
+// 1. Reducers are pure functions -output only determined by input-group. Reducers need to compute new state based on old state
+// 2. Never change state or action
+
+
+const countReducer = (state = { count: 0 }, action) => {
   switch (action.type) {
     case 'INCREMENT':
     const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
       return {
-        count: state.count + incrementBy
+        count: state.count + action.incrementBy
       };
     case 'DECREMENT':
       return {
-        count: state.count - 1
+        count: state.count - action.decrementBy
       };
       case 'SET':
       return {
         count: action.count
       };
+      // call the action generators
     case 'RESET':
       return {
         count: 0
@@ -22,34 +51,36 @@ const store = createStore((state = { count: 0 }, action) => {
     defualt:
       return state;
   }
-});
+}
+
+// this function is called a Recucer, can read more in Redux documentation
+const store = createStore(countReducer);
 
 const unsubscribe = store.subscribe(() => {
   console.log(store.getState());
 })
 
 // i'd like to increment the count and send to store via store.dispatch();
-store.dispatch({
-  type: 'INCREMENT',
-  incrementBy: 5
-});
+// store.dispatch({
+//   type: 'INCREMENT',
+//   incrementBy: 5
+// });
+
+store.dispatch(incrementCount({ incrementBy: 5 }));
 
 store.dispatch({
   type: 'INCREMENT'
 });
 
-store.dispatch({
-  type: 'RESET'
-});
+store.dispath(incrementCount());
 
-store.dispatch({
-  type: 'DECREMENT'
-});
+store.dispatch(resetCount());
 
-store.dispatch({
-  type: 'SET',
-  count: 101
-})
+store.dispatch(decrementCount());
+
+store.dispatch(decrementCount({ decrementBy: 10 }));
+
+store.dispatch(setCount({ count: 101}));
 
 // console.log("this is from redux 101")
 
